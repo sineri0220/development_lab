@@ -2,6 +2,15 @@ import React, {useState} from 'react';
 
 import './App.css';
 
+function Input({value, onChange}) {
+  return (
+    <div style = {{margin: 3, display: 'flex'}}>
+      <input 
+        style={{width: 70, textAlign: 'center', fontSize: 25, padding: 4}}
+        value={value} onChange={onChange}/>
+    </div>
+  )
+}
 
 function Calculator(){
    
@@ -35,10 +44,10 @@ function Calculator(){
     
         <h1>Calculating two numbers</h1>
         <div className="Input-numbers">
-            <input type="number" value={number} onChange={e => setNumber(e.target.value)}/>
+            <Input type="number" value={number} onChange={e => setNumber(e.target.value)}/>
             {/* <input type="text" value={operator} onChange={e => setOperator(+e.target.value)}/> */}
-            <input type="text" value={operator} onChange={e => setOperator(e.target.value)}/>
-            <input type="number" value={number2} onChange={e => setNumber2(e.target.value)}/>
+            <Input type="text" value={operator} onChange={e => setOperator(e.target.value)}/>
+            <Input type="number" value={number2} onChange={e => setNumber2(e.target.value)}/>
         </div>
         {/* <button onClick={calculate({operator})}>Calculate</button> */}
         <h2>Rendered</h2>
