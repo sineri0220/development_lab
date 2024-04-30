@@ -33,11 +33,7 @@ function Calculator(){
         result = Number(number) / Number(number2)
         
     }
-    // !!!질문!!!  
-     // 질문!! 왜 함수로 한꺼번에 정의하면 오류뜨지..===는 위치로 비교하는거라면서 false밖에 안나온다고 했음
-    // 그리고 String.equals(st1, st2) 이용하면 오류 뜨나?
-    // 함수 안에서 실행했을 때는 그건 function이 아니라면서 오류뜨던데..(근데 애초에 왜 function이어야함?)
-
+  
   return (
     <div className="App">
       <header className="App-header">
