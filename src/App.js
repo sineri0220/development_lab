@@ -8,10 +8,10 @@ import Calculator from './firstapp';
 function App() {
   return (
     <div>
-      <nav>
-        <Link to='/'>Home</Link>
-        <Link to ='/calculator'>Calculator</Link>
-      </nav>
+      // <nav>
+      //   <Link to='/'>Home</Link>
+      //   <Link to ='/calculator'>Calculator</Link>
+      // </nav>
       <Routes>
       	{/* '/'로 접근할 경우 Home 컴포넌트로 렌더링 */}
         <Route path='/' exact element={<Home />} />
