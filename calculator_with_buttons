@@ -1,0 +1,100 @@
+import React, {useState} from 'react';
+import './App.css';
+
+
+function Button({ children, onClick}) {
+  return (
+    <div style = {{marginBottom: 10, background: '#a8a6de', color: '#a4a4d8', flex: 1}}>
+      <button className="Button" style={{textAlign: 'center', fontSize: 18}}
+      onClick={e => (e.target.value)} value={children}>
+          {children}
+      </button>
+    </div>
+  )
+}
+
+function EvalButton({ children }) {
+  return (
+    <div style = {{marginBottom: 10, background: '#e77464', color: 'white', flex: 2}}>
+      <button className="EvalButton" style={{textAlign: 'center', fontSize: 18}}>
+          {children}
+      </button>
+    </div>
+  )
+}
+
+function Input({value, onChange}) {
+  return (
+    <div style = {{margin: 3, display: 'flex'}}>
+      <input 
+        style={{width: 70, textAlign: 'center', fontSize: 25, padding: 4}}
+        value={value} onChange={onChange}/>
+    </div>
+  )
+}
+
+
+function App() {
+    const [number, setNumber] = useState(0);
+    const [number2, setNumber2] = useState(0);
+    const [operator, setOperator] = useState("");
+  
+        
+    let result = 0;        
+    if (operator === '+'){
+        result = Number(number) + Number(number2)
+        
+    } else if (operator === '-'){
+        result = Number(number) - Number(number2)
+        
+    } else if (operator === '*'){
+        result = Number(number) * Number(number2)
+       
+    } else if (operator === '/'){
+        result = Number(number) / Number(number2)
+        
+    }
+  return (
+    <div className="App">
+      <header className="App-header">
+            <div style={{backgroundColor: '#1f5181',  width: 400, height: 450}}>
+              <div>
+                <h4>{result}</h4>
+              {/* <button
+              style={{backgroundColor: "white",  width: 350, height: 70, marginBottom: 10, marginTop: 10, textAlign: 'center', fontSize: 18 }}
+              >{result}</button> */}
+              </div>
+              <div style={{display: "flex", justifyContent: 'space-evenly'}}>
+              <Button>C</Button><Button>+-</Button><Button>%</Button><Button>/</Button>
+              </div>
+              <div style={{display: "flex", justifyContent: 'space-evenly'}}>            
+              <Button>7</Button><Button>8</Button><Button>9</Button><Button>0</Button>
+              </div>
+              <div style={{display: "flex", justifyContent: 'space-evenly'}}>            
+              <Button>4</Button><Button>5</Button><Button>6</Button><Button>-</Button>
+              </div>
+              <div style={{display: "flex", justifyContent: 'space-evenly'}}>            
+              <Button>1</Button><Button>2</Button><Button>3</Button><Button>+</Button>
+              </div>
+              <div style={{display: "flex", justifyContent: 'space-evenly'}}>            
+              <Button>0</Button><Button>.</Button><EvalButton>=</EvalButton>
+              </div>
+            </div>
+            <br/>
+            <br/>
+            <div className="Input-numbers">
+              <Input type="number" value={number} onChange={e => setNumber(e.target.value)}/>
+              {/* <input type="text" value={operator} onChange={e => setOperator(+e.target.value)}/> */}
+              <Input type="text" value={operator} onChange={e => setOperator(e.target.value)}/>
+              <Input type="number" value={number2} onChange={e => setNumber2(e.target.value)}/>
+            </div>
+            {/* <button onClick={calculate({operator})}>Calculate</button> */}
+            <h2>Rendered</h2>
+            <h3>{number} {operator} {number2}={result}</h3>
+
+      </header>
+    </div>
+  );
+}
+
+export default App;
