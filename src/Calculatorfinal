@@ -1,0 +1,180 @@
+import React, { useState } from 'react';
+import './App.css';
+
+function Button({ text, left, op, right, setLeft, setRight }) {
+  return (
+    <div style={{background: '#1f5181', color: '#a4a4d8'}}>
+      <button
+        className="Button"
+        style={{ textAlign: 'center', fontSize: 18, color: 'white', background: '#a4a4d8', borderRadius: 5 }}
+        onClick={() => {
+          if (!left && !op) {
+            setLeft(text);
+          } else if (left && !op && !right) {
+            setLeft(left + text);
+          } else if (op && right !== undefined) {
+            setRight(right + text);
+          }
+        }}
+      >
+        {text}
+      </button>
+    </div>
+  );
+}
+
+function EvalButton({ left, op, right, setLeft, setOp, setRight }) {
+  return (
+    <button
+      className="EvalButton"
+      onClick={() => {
+        const ret = calculate(left, op, right);
+        setLeft(ret.toString());
+        setOp('');
+        setRight('');
+      }}
+      style={{ textAlign: 'center', fontSize: 18, color: 'white', background: '#eb5e34', borderRadius: 5 }}
+    >
+      =
+    </button>
+  );
+}
+
+function OpButton({ text, setOp }) {
+  return (
+    <button
+    className="OpButton"
+      onClick={() => {
+        setOp(text);
+      }}
+      style={{ textAlign: 'center', fontSize: 18, color: 'white', background: '#a4a4d8', borderRadius: 5 }}
+    >
+      {text}
+    </button>
+  );
+}
+
+function ClearButton({ setLeft, setOp, setRight }) {
+  return (
+    <button
+      className="Button"
+      onClick={() => {
+        setLeft('');
+        setOp('');
+        setRight('');
+      }}
+      style={{ textAlign: 'center', fontSize: 18, color: 'white', background: '#a4a4d8', borderRadius: 5 }}
+    >
+      C
+    </button>
+  );
+}
+
+function DeleteButton({ left, right, op, setLeft, setOp, setRight }) {
+  return (
+    <button
+    className="Button"
+      onClick={() => {
+        if (right) {
+          setRight(right.slice(0, -1));
+        } else if (op) {
+          setOp('');
+        } else if (left) {
+          setLeft(left.slice(0, -1));
+        }
+      }}
+      style={{ textAlign: 'center', fontSize: 18, color: 'white', background: '#a4a4d8', borderRadius: 5 }}
+    >
+      Del
+    </button>
+  );
+}
+
+function PlusMinusButton({ left, right, op, setLeft, setOp, setRight }) {
+  return (
+    <button
+      className="Button"
+      onClick={() => {
+        if (right) {
+          setRight('-' + right);
+        } else if (op) {
+          
+          setLeft(left.charAt(0) === '-' ? left.slice(1) : '-' + left);
+        } else if (left) {
+          
+          setLeft(left.charAt(0) === '-' ? left.slice(1) : '-' + left);
+        }
+      }}
+      style={{ textAlign: 'center', fontSize: 18, color: 'white', background: '#a4a4d8', borderRadius: 5 }}
+    >
+      ±
+    </button>
+  );
+}
+
+
+
+function calculate(left, op, right) {
+  let result = 0;
+  if (op === '+') {
+    result = Number(left) + Number(right);
+  } else if (op === '-') {
+    result = Number(left) - Number(right);
+  } else if (op === '*') {
+    result = Number(left) * Number(right);
+  } else if (op === '/') {
+    result = Number(left) / Number(right);
+  }
+  return result;
+}
+
+function Calculator() {
+  const [left, setLeft] = useState('');
+  const [right, setRight] = useState('');
+  const [op, setOp] = useState('');
+
+  return (
+  
+    <div className="App">
+      <header className="App-header">
+        <div style={{ backgroundColor: '#1f5181', width: 300, height: 460, borderRadius: 5 }}>
+          <div>
+            <h4>{left} {op} {right}</h4>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-evenly' , marginBottom: 10 }}>
+            <ClearButton setLeft={setLeft} setOp={setOp} setRight={setRight} />
+            <DeleteButton left={left} right={right} op={op} setLeft={setLeft} setOp={setOp} setRight={setRight} />
+            <PlusMinusButton left={left} right={right} op={op} setLeft={setLeft} setOp={setOp} setRight={setRight} />
+            {/* <PlusMinusButton text="%" setOp={setOp} /> */}
+            <OpButton text="/" setOp={setOp} />
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-evenly', marginBottom: 10 }}>
+            <Button text="7" left={left} op={op} right={right} setLeft={setLeft} setRight={setRight} />
+            <Button text="8" left={left} op={op} right={right} setLeft={setLeft} setRight={setRight} />
+            <Button text="9" left={left} op={op} right={right} setLeft={setLeft} setRight={setRight} />
+            <OpButton text="*" setOp={setOp} />
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-evenly',marginBottom: 10 }}>
+            <Button text="4" left={left} op={op} right={right} setLeft={setLeft} setRight={setRight} />
+            <Button text="5" left={left} op={op} right={right} setLeft={setLeft} setRight={setRight} />
+            <Button text="6" left={left} op={op} right={right} setLeft={setLeft} setRight={setRight} />
+            <OpButton text="-" setOp={setOp} />
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-evenly', marginBottom: 10 }}>
+            <Button text="1" left={left} op={op} right={right} setLeft={setLeft} setRight={setRight} />
+            <Button text="2" left={left} op={op} right={right} setLeft={setLeft} setRight={setRight} />
+            <Button text="3" left={left} op={op} right={right} setLeft={setLeft} setRight={setRight} />
+            <OpButton text="+" setOp={setOp} />
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-evenly', marginBottom: 10 }}>
+            <Button text="0" left={left} op={op} right={right} setLeft={setLeft} setRight={setRight} />
+            <Button text="." left={left} op={op} right={right} setLeft={setLeft} setRight={setRight} />
+            <EvalButton left={left} op={op} right={right} setLeft={setLeft} setOp={setOp} setRight={setRight} />
+          </div>
+        </div>
+      </header>
+    </div>
+  );
+}
+
+export default Calculator;
